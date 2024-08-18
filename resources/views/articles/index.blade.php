@@ -37,6 +37,9 @@
                                 <p class="text-gray-600">Co-Founder / CTO</p>
                             </div>
                         </div>
+                        @auth
+                        <a href="/articles/{{$article->id}}/edit" class="bg-indigo-500 rounded-lg text-white focus:outline-none focus:ring focus:ring-violet-300">Edit</a>
+                            @endauth
                     </article>
                     @endforeach
                     <!-- More posts... -->
