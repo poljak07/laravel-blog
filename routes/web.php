@@ -3,6 +3,7 @@
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -26,7 +27,7 @@ Route::get('/articles',
 
 Route::get('/articles/create', [ArticleController::class, 'create'])
     ->middleware('auth')->name('articles.create');
-Route::post('articles/create', [ArticleController::class, 'store'])
+Route::post('/articles/create', [ArticleController::class, 'store'])
     ->middleware('auth')->name('articles.store');
 
 Route::get('/articles/{article}', [ArticleController::class, 'show'])
@@ -41,6 +42,25 @@ Route::patch('/articles/{article}', [ArticleController::class, 'update'])
 Route::delete('/articles/{article}', [ArticleController::class, 'destroy'])
     ->middleware('auth')
     ->name('articles.destroy');
+
+Route::get('/tags',
+        [TagController::class, 'index'])
+    ->name('tags.index');
+
+Route::get('/tags/create', [TagController::class, 'create'])
+    ->middleware('auth')->name('tags.create');
+Route::post('/tags/create', [TagController::class, 'store'])
+    ->middleware('auth')->name('tags.store');
+
+Route::get('/tags/{tag}/edit', [TagController::class, 'edit'])
+    ->name('tags.edit');
+
+Route::patch('/tags/{tag}', [TagController::class, 'update'])
+    ->name('tags.update');
+
+Route::delete('/tags/{tag}', [TagController::class, 'destroy'])
+    ->middleware('auth')
+    ->name('tags.destroy');
 
 Route::get('/about', function () {
     return view('about');
