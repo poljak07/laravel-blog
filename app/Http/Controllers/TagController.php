@@ -12,6 +12,11 @@ class TagController extends Controller
      */
     public function index()
     {
+        $tags = Tag::all();
+
+        return view('tags.index', [
+            'tags' => $tags
+        ]);
 
     }
 
@@ -51,9 +56,12 @@ class TagController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Tag $tag)
     {
-        //
+        return view('tags.show',
+        [
+            'tag' => $tag
+        ]);
     }
 
     /**

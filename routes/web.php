@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TagController;
@@ -22,8 +23,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/articles',
-    [ArticleController::class, 'index'])->name('articles.index');
+Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
 
 Route::get('/articles/create', [ArticleController::class, 'create'])
     ->middleware('auth')->name('articles.create');
@@ -55,12 +55,42 @@ Route::post('/tags/create', [TagController::class, 'store'])
 Route::get('/tags/{tag}/edit', [TagController::class, 'edit'])
     ->name('tags.edit');
 
+Route::get('/tags/{tag}', [TagController::class, 'show'])
+    ->name('tags.show');
+
 Route::patch('/tags/{tag}', [TagController::class, 'update'])
     ->name('tags.update');
 
 Route::delete('/tags/{tag}', [TagController::class, 'destroy'])
     ->middleware('auth')
     ->name('tags.destroy');
+
+Route::get('/categories',
+        [CategoryController::class, 'index'])
+    ->name('categories.index');
+
+Route::patch('/categories/{category}', [CategoryController::class, 'update'])
+    ->name('categories.update');
+
+Route::get('/categories/create',
+    [CategoryController::class, 'create'])
+    ->name('categories.create');
+
+Route::get('/categories/{category}',
+        [CategoryController::class, 'show'])
+        ->name('categories.show');
+
+Route::get('/categories/{category}/edit', [CategoryController::class, 'edit'])
+    ->name('categories.edit');
+
+Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])
+    ->middleware('auth')
+    ->name('categories.destroy');
+
+
+Route::post('/categories/store',
+       [CategoryController::class, 'store'])
+    ->name('categories.store');
 
 Route::get('/about', function () {
     return view('about');

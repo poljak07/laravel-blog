@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            <p>Edit: {{ $tag->name }}</p>
+            <p>Edit: {{ $category->name }}</p>
         </h2>
     </x-slot>
 
@@ -9,14 +9,14 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <form action="{{ route('tags.update', $tag->id) }}" method="POST">
+                    <form action="{{ route('categories.update', $category->id) }}" method="POST">
                         @csrf
                         @method('PATCH')
                         <div>
-                            <label for="name" class="block text-sm font-semibold leading-6 text-white">Tag name</label>
+                            <label for="name" class="block text-sm font-semibold leading-6 text-white">Category name</label>
                             <x-input-error :messages="$errors->get('name')" class="mt-2" />
                             <div class="mt-2.5">
-                                <input type="text" value="{{$tag->name}}" name="name" id="name" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
+                                <input type="text" value="{{$category->name}}" name="name" id="name" class="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
                             </div>
                         </div>
 
@@ -26,7 +26,7 @@
                         </div>
                     </form>
 
-                    <form method="POST" action="{{ route('tags.destroy', $tag->id) }}" id="delete-form" class="hidden">
+                    <form method="POST" action="{{ route('categories.destroy', $category->id) }}" id="delete-form" class="hidden">
                         @csrf
                         @method('DELETE')
                     </form>

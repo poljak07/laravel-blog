@@ -16,7 +16,7 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
-                    <x-nav-link>Create new category</x-nav-link>
+                    <x-nav-link :href="route('categories.create')" :active="request()->routeIs('categories.create')">Create new category</x-nav-link>
                     <x-nav-link :href="route('tags.create')" :active="request()->routeIs('tags.create')">Create new tag</x-nav-link>
                     <x-nav-link :href="route('articles.create')" :active="request()->routeIs('articles.create')">Create new article</x-nav-link>
 
