@@ -36,16 +36,25 @@ class ArticleController extends Controller
      */
     public function store(Article $article)
     {
-        request()->validate([
+        $attributes = request()->validate([
             'title' => ['required', 'min:5'],
-            'content' => ['required', 'min:15']
+            'content' => ['required', 'min:15'],
+            'category' => ['required']
         ]);
 
-        Article::create([
-            'title' => request('title'),
-            'content' => request('content'),
-            'category_id' => request('category'),
+        $article = Article::create([
+            'title' => $attributes['title'],
+            'content' => $attributes['content'],
+            'category_id' => $attributes['category'],
         ]);
+
+        if (request()->hasFile('photo')) {
+            $photo = request()->file('photo')->getClientOriginalName();
+            request()->file('photo')->storeAs('articles/' . $article->id, $photo, 'public');
+
+            $article->update(['photo' => $photo]);
+        }
+
 
         return redirect('/articles/' . $article->id);
     }

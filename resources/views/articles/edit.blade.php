@@ -1,7 +1,7 @@
 <x-layout>
 
 <x-heading> Edit article "{{$article->title}}"</x-heading>
-    <form action="/articles/{{$article->id}}" method="POST">
+    <form action="{{route('articles.update', $article->id)}}" method="POST">
         @csrf
         @method('PATCH')
         <div>
@@ -57,7 +57,7 @@
         </div>
     </form>
 
-    <form method="POST" action="/articles/{{$article->id}}" id="delete-form" class="hidden">
+    <form method="POST" action="{{route('articles.destroy', $article->id)}}" id="delete-form" class="hidden">
         @csrf
         @method('DELETE')
     </form>
