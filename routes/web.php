@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
@@ -92,9 +93,7 @@ Route::post('/categories/store',
        [CategoryController::class, 'store'])
     ->name('categories.store');
 
-Route::get('/about', function () {
-    return view('about');
-})->name('about');
+Route::get('/about', AboutController::class)->name('about');
 
 Route::get('/contact',
     [ContactController::class, 'index'])
