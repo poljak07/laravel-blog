@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use App\Models\Tag;
 use App\Models\Category;
 
@@ -14,9 +16,9 @@ class Article extends Model
 
     protected $guarded = [];
 
-    public function tags(): HasMany
+    public function tags(): BelongsToMany
     {
-        return $this->belongsToMany(Tag::class);
+        return $this->BelongsToMany(Tag::class);
     }
 
     public function category(): BelongsTo

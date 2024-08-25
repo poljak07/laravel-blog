@@ -14,7 +14,12 @@
                     <article class="rounded-md border-indigo-400 flex max-w-xl flex-col items-start justify-between">
                         <div class="flex items-center gap-x-4 text-xs">
                             <time datetime="2020-03-16" class="text-gray-500">{{ $article->created_at }}</time>
-                            <x-article.tag> Marketing</x-article.tag>
+
+                            @foreach($article->tags as $tag)
+                                <x-article.tag>{{ $tag->name }}</x-article.tag>
+                            @endforeach
+
+
                         </div>
                         <div class="group relative">
                             <h3 class="mt-3 text-lg font-semibold leading-6 text-gray-900 group-hover:text-gray-600">
@@ -31,10 +36,9 @@
                                 <p class="font-semibold text-gray-900">
                                     <a href="#">
                                         <span class="absolute inset-0"></span>
-                                        Michael Foster
+                                        {{ $article->user ? $article->user->name : 'Nepoznat autor' }}
                                     </a>
                                 </p>
-                                <p class="text-gray-600">Co-Founder / CTO</p>
                             </div>
                         </div>
                         @auth
