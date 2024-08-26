@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\category;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
@@ -27,8 +28,10 @@ class ArticleController extends Controller
     public function create()
     {
         $categories = category::all();
+        $tags = Tag::all();
         return view('articles.create', [
-            'categories' => $categories
+            'categories' => $categories,
+            'tags' => $tags
         ]);
     }
 
@@ -48,6 +51,10 @@ class ArticleController extends Controller
             'content' => $attributes['content'],
             'category_id' => $attributes['category'],
         ]);
+
+        $tagIds = request()->input('tags', []);
+        $article->tags()->attach($tagIds);
+
 
         if (request()->hasFile('photo')) {
             $photo = request()->file('photo')->getClientOriginalName();
@@ -78,10 +85,14 @@ class ArticleController extends Controller
     public function edit(Article $article)
     {
         $categories = category::all();
+        $tags = Tag::all();
+        $selectedTags = $article->tags->pluck('id')->toArray();
 
         return view('articles.edit', [
             'article' => $article,
-            'categories' => $categories
+            'categories' => $categories,
+            'selectedTags' => $selectedTags,
+            'tags' => $tags
         ]);
     }
 
@@ -99,6 +110,10 @@ class ArticleController extends Controller
             'title' => request('title'),
             'content' => request('content')
         ]);
+
+        $tagIds = request()->input('tags', []);
+        $article->tags()->syncWithoutDetaching($tagIds);;
+
 
         return redirect('/articles/' . $article->id);
 

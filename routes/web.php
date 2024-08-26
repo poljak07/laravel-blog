@@ -4,13 +4,13 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('index');
-})->name('home');
+Route::get('/', HomeController::class)
+->name('home');
 
 
 
@@ -19,25 +19,33 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/profile', [ProfileController::class, 'edit'])
+        ->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])
+        ->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])
+        ->name('profile.destroy');
 });
 
-Route::get('/articles', [ArticleController::class, 'index'])->name('articles.index');
+Route::get('/articles', [ArticleController::class, 'index'])
+    ->name('articles.index');
 
 Route::get('/articles/create', [ArticleController::class, 'create'])
-    ->middleware('auth')->name('articles.create');
+    ->middleware('auth')
+    ->name('articles.create');
 Route::post('/articles/create', [ArticleController::class, 'store'])
-    ->middleware('auth')->name('articles.store');
+    ->middleware('auth')
+    ->name('articles.store');
 
 Route::get('/articles/{article}', [ArticleController::class, 'show'])
     ->name('articles.show');
 
 Route::get('/articles/{article}/edit', [ArticleController::class, 'edit'])
+    ->middleware('auth')
     ->name('articles.edit');
 
 Route::patch('/articles/{article}', [ArticleController::class, 'update'])
+    ->middleware('auth')
     ->name('articles.update');
 
 Route::delete('/articles/{article}', [ArticleController::class, 'destroy'])
@@ -49,17 +57,21 @@ Route::get('/tags',
     ->name('tags.index');
 
 Route::get('/tags/create', [TagController::class, 'create'])
-    ->middleware('auth')->name('tags.create');
+    ->middleware('auth')
+    ->name('tags.create');
 Route::post('/tags/create', [TagController::class, 'store'])
-    ->middleware('auth')->name('tags.store');
+    ->middleware('auth')
+    ->name('tags.store');
 
 Route::get('/tags/{tag}/edit', [TagController::class, 'edit'])
+    ->middleware('auth')
     ->name('tags.edit');
 
 Route::get('/tags/{tag}', [TagController::class, 'show'])
     ->name('tags.show');
 
 Route::patch('/tags/{tag}', [TagController::class, 'update'])
+    ->middleware('auth')
     ->name('tags.update');
 
 Route::delete('/tags/{tag}', [TagController::class, 'destroy'])
@@ -71,10 +83,12 @@ Route::get('/categories',
     ->name('categories.index');
 
 Route::patch('/categories/{category}', [CategoryController::class, 'update'])
+    ->middleware('auth')
     ->name('categories.update');
 
 Route::get('/categories/create',
     [CategoryController::class, 'create'])
+    ->middleware('auth')
     ->name('categories.create');
 
 Route::get('/categories/{category}',
@@ -82,6 +96,7 @@ Route::get('/categories/{category}',
         ->name('categories.show');
 
 Route::get('/categories/{category}/edit', [CategoryController::class, 'edit'])
+    ->middleware('auth')
     ->name('categories.edit');
 
 Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])

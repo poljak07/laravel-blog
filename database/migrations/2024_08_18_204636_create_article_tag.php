@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('article_id')->constrained();
             $table->foreignId('tag_id')->constrained();
+            $table->unique(['article_id', 'tag_id']);
             $table->timestamps();
         });
     }

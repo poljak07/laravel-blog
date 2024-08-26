@@ -50,12 +50,39 @@
             </div>
         </div>
 
+        <div class="mt-10 space-y-10">
+            <fieldset>
+                <legend class="text-sm font-semibold leading-6 text-gray-900">Tags include</legend>
+
+                <div class="mt-6 space-y-6">
+                    @foreach($tags as $tag)
+                        <div class="relative flex gap-x-3">
+                            <div class="flex h-6 items-center">
+                                <input
+                                    id="tag-{{ $tag->id }}"
+                                    name="tags[]"
+                                    type="checkbox"
+                                    value="{{ $tag->id }}"
+                                    class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                                    @checked(in_array($tag->id, $selectedTags))
+                                >
+                            </div>
+                            <div class="text-sm leading-6">
+                                <label for="tag-{{ $tag->id }}" class="font-medium text-gray-900">{{ $tag->name }}</label>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </fieldset>
+
         <div class="col-span-full mt-6 flex justify-center gap-x-6">
             <a  href="{{ route('articles.index') }}"type="button" class="text-sm font-semibold leading-6 text-red-600">Cancel</a>
             <button form="delete-form" class="text-sm font-semibold leading-6 text-red-600">Delete this article</button>
             <button type="submit" class="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Save</button>
         </div>
     </form>
+
+
 
     <form method="POST" action="{{route('articles.destroy', $article->id)}}" id="delete-form" class="hidden">
         @csrf
