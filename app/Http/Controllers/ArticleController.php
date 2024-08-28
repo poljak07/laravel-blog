@@ -50,6 +50,7 @@ class ArticleController extends Controller
             'title' => $attributes['title'],
             'content' => $attributes['content'],
             'category_id' => $attributes['category'],
+            'user_id' => auth()->id()
         ]);
 
         $tagIds = request()->input('tags', []);

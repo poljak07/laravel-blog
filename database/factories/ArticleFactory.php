@@ -18,8 +18,12 @@ class ArticleFactory extends Factory
     {
         return [
             'title' => fake()->sentence(3),
-            'content' => fake()->sentences(15),
-            'photo' => fake()->image()
-        ];
+            'content' => $this->faker->paragraphs(5, true),
+            'photo' => $this->faker->imageUrl(640, 480, 'articles', true),
+            'user_id' => \App\Models\User::factory(),
+            'category_id' => \App\Models\Category::factory(),
+            'created_at' => now(),
+            'updated_at' => now()
+            ];
     }
 }

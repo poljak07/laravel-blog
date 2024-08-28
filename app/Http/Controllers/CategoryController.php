@@ -36,11 +36,12 @@ class CategoryController extends Controller
             'name' => ['required', 'unique:categories', 'min:3', 'max:24']
         ]);
 
-        Category::create([
-           'name' => request('name')
+        $category = Category::create([
+           'name' => request('name'),
+
         ]);
 
-        return view('category.index');
+        return redirect(route('categories.show', $category->id));
     }
 
     /**
@@ -77,6 +78,7 @@ class CategoryController extends Controller
             'name' => request('name')
         ]);
 
+
         return redirect('/categories');
     }
 
@@ -85,6 +87,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        $category = Category::findOrFail($category->id);
+
         $category->delete();
 
         return redirect('/categories');
